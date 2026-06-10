@@ -6,11 +6,20 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class Shipment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,5 +38,5 @@ public class Shipment {
     private ShipmentStatus status;
 
     @CreationTimestamp
-    private long createdAt;
+    private Instant createdAt;
 }
