@@ -2,9 +2,11 @@ package de.hoelzlem.backend.services;
 
 import de.hoelzlem.backend.entities.City;
 import de.hoelzlem.backend.entities.FreightType;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class DeliveryTimeService {
 
     private final Map<String, String> continentLookup = Map.of(
@@ -25,7 +27,7 @@ public class DeliveryTimeService {
      * @param destination city of destination
      * @return number of days it takes to ship between origin and destination
     */
-    int calculateDays(City origin, City destination, FreightType freightType) {
+    public int calculateDays(City origin, City destination, FreightType freightType) {
 
         // check same country
         if (origin.getCountry().equals(destination.getCountry()) && freightType == FreightType.AIR) {

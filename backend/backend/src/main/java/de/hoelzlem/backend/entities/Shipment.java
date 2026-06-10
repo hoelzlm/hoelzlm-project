@@ -22,8 +22,8 @@ import java.util.UUID;
 @Data
 public class Shipment {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "origin_city_id")
