@@ -2,12 +2,18 @@ package de.hoelzlem.backend.services;
 
 import de.hoelzlem.backend.entities.City;
 import de.hoelzlem.backend.entities.FreightType;
+import de.hoelzlem.backend.repositories.CityRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class DeliveryTimeService {
+
+    private final CityRepository cityRepository;
 
     private final Map<String, String> continentLookup = Map.of(
             "Germany", "Europe",
@@ -55,5 +61,27 @@ public class DeliveryTimeService {
         // case it is intercontinental sea shipment
         return this.getRandomNumber(20, 35);
     };
+
+    public int calculateDays(long originCityId, long destinationCityId, String freightTypeString) {
+
+        Optional<City> originCity = cityRepository.findById(originCityId);
+        Optional<City> destinationCity = cityRepository.findById(destinationCityId);
+
+        Optional<FreightType> freightType = Optional.empty();
+
+        if(freightTypeString.equals("AIR")) {
+            freightType = Optional.of(FreightType.AIR);
+        }
+
+        if(freightTypeString.equals("SEA")) {
+            freightType = Optional.of(FreightType.SEA);
+        }
+
+        if (originCity.isPresent() && destinationCity.isPresent() && freightType.isPresent()) {
+            return calculateDays(originCity.get(), destinationCity.get(), freightType.get());
+        }
+
+        throw new RuntimeException("Invalid input");
+    }
 
 }

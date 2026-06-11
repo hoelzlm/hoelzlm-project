@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { throwError } from 'rxjs/internal/observable/throwError';
+import { EstimatedDaysToDeliverModel } from '../estimated.model';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 
 export interface SendPackageModel {
   originCityId: number | null;
@@ -29,6 +32,8 @@ export interface SendPackageModel {
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatCardModule,
+    MatChipsModule,
   ],
   templateUrl: './send-package.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -39,11 +44,9 @@ export class SendPackage {
   service = inject(Shipment);
   router = inject(Router);
 
-  citiesResource = httpResource<CityModel[]>(() => 'http://localhost:8080/api/v1/cities');
-
   sendPackageModel = signal<SendPackageModel>({
-    originCityId: null,
-    destinationCityId: null,
+    originCityId: 1,
+    destinationCityId: 2,
     freightType: 'AIR',
   });
 
@@ -64,6 +67,12 @@ export class SendPackage {
       return null;
     });
   });
+
+  citiesResource = httpResource<CityModel[]>(() => 'http://localhost:8080/api/v1/cities');
+  estimatedDaysToDeliver = httpResource<EstimatedDaysToDeliverModel>(
+    () =>
+      `http://localhost:8080/api/v1/shipments/calculated?originCityId=${this.sendPackageModel().originCityId}&destinationCityId=${this.sendPackageModel().destinationCityId}&freightType=${this.sendPackageModel().freightType}`,
+  );
 
   openSnackBar(message: string, deliveryDays: number | null) {
     this._snackBar.open(

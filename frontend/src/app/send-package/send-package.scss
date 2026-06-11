@@ -2,13 +2,31 @@
   padding: 2rem;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-}
-
 .error-message {
   color: red;
   margin-bottom: 0.5rem;
+}
+
+.card {
+  box-shadow: none;
+  display: flex;
+  max-width: 50%;
+  padding: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__spacer {
+    height: 0;
+    min-width: 2rem;
+    width: 4rem;
+    border-top: 2px solid var(--mat-sys-on-surface);
+    opacity: 0.5;
+    align-self: center;
+  }
 }
