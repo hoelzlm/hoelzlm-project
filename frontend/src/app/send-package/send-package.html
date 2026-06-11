@@ -1,1 +1,52 @@
-<p>send-package works!</p>
+<form (submit)="onSubmit($event)">
+  <div class="form-container">
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Origin City</mat-label>
+        <mat-select [formField]="sendPackageForm.originCityId">
+          @for (city of citiesResource.value(); track city.id) {
+            <mat-option [value]="city.id"> {{ city.name }} ({{ city.country }}) </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Freight Type</mat-label>
+        <mat-select [formField]="sendPackageForm.freightType">
+          <mat-option value="AIR"> <mat-icon>flight</mat-icon> Air </mat-option>
+          <mat-option value="SEA"> <mat-icon>directions_boat</mat-icon> Sea </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field>
+        <mat-label>Destination City</mat-label>
+        <mat-select [formField]="sendPackageForm.destinationCityId">
+          @for (city of citiesResource.value(); track city.id) {
+            <mat-option [value]="city.id"> {{ city.name }} ({{ city.country }}) </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  @if (
+    sendPackageForm().touched() &&
+    (sendPackageForm.originCityId().errors().length > 0 ||
+      sendPackageForm.destinationCityId().errors().length > 0)
+  ) {
+    @for (error of sendPackageForm.originCityId().errors(); track $index) {
+      <div class="error-message">{{ error.message }}</div>
+    }
+    @for (error of sendPackageForm.destinationCityId().errors(); track $index) {
+      <div class="error-message">{{ error.message }}</div>
+    }
+  }
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="sendPackageForm().invalid()">
+    Send Package
+  </button>
+</form>

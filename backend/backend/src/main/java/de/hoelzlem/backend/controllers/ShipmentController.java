@@ -9,7 +9,7 @@ import de.hoelzlem.backend.entities.ShipmentStatus;
 import de.hoelzlem.backend.repositories.CityRepository;
 import de.hoelzlem.backend.repositories.ShipmentRepository;
 import de.hoelzlem.backend.services.DeliveryTimeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,20 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/shipments", produces = "application/json")
+@RequiredArgsConstructor
 public class ShipmentController {
 
-    @Autowired
-    CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    ShipmentRepository shipmentRepository;
+    private final ShipmentRepository shipmentRepository;
 
-    @Autowired
-    DeliveryTimeService deliveryTimeService;
+    private final DeliveryTimeService deliveryTimeService;
 
     @GetMapping
     List<Shipment> getShipments() {

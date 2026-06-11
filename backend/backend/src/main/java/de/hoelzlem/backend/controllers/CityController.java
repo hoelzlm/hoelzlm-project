@@ -3,8 +3,6 @@ package de.hoelzlem.backend.controllers;
 import de.hoelzlem.backend.entities.City;
 import de.hoelzlem.backend.repositories.CityRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CityController {
 
-    @Autowired
-    CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
     @GetMapping()
     List<City> getCities() {
