@@ -1,0 +1,29 @@
+:host {
+  padding: 16px;
+}
+
+.card {
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  max-width: 50%;
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.text {
+  &__label {
+    font-weight: 600;
+    color: #191919;
+    padding-bottom: 4px;
+  }
+  &__value {
+    font-weight: 400;
+    color: #464648;
+  }
+}

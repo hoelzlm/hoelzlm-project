@@ -1,0 +1,52 @@
+<mat-card class="card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image">
+      <mat-icon>{{ freightIcon() }}</mat-icon>
+    </div>
+    <mat-card-title>
+      {{ shipment().originCity.name }} -
+      {{ shipment().destinationCity.name }}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="card__container">
+      <div>
+        <div class="text__label">Freight Type</div>
+        <div class="text__value">
+          {{ shipment().freightType }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text__label">Origin</div>
+        <div class="text__value">
+          {{ shipment().originCity.name }}, {{ shipment().originCity.country }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text__label">Destination</div>
+        <div class="text__value">
+          {{ shipment().destinationCity.name }}, {{ shipment().destinationCity.country }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text__label">Created at</div>
+        <div class="text__value">
+          {{ shipment().createdAt | date: 'short' }}
+        </div>
+      </div>
+
+      <div>
+        <div class="text__label">Estimated Delivery</div>
+        <div class="text__value">{{ shipment().estimatedDays }} days</div>
+      </div>
+
+      <div>
+        <div class="text__label">Current Status</div>
+        <div class="text__value">{{ progressText() }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
